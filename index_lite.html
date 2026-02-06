@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Selection Bootcamp - Ice Breaking</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a',
+                        },
+                        accent: {
+                            50: '#fdf4ff', 100: '#fae8ff', 500: '#d946ef', 600: '#c026d3',
+                        }
+                    },
+                    animation: {
+                        'bounce-slight': 'bounce-slight 1s infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        'bounce-slight': {
+                            '0%, 100%': { transform: 'translateY(-2px)' },
+                            '50%': { transform: 'translateY(2px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #F8FAFC; overflow: hidden; }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Slide Transitions */
+        .slide-container {
+            display: none;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+        
+        .slide-container.active {
+            display: flex;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col">
+
+    <!-- 1. Header (Fixed) -->
+    <header class="bg-white border-b border-slate-200 h-16 shrink-0 shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="goToSlide(1)">
+                <div class="bg-gradient-to-br from-blue-600 to-indigo-600 text-white p-2 rounded-lg shadow-md w-9 h-9 flex items-center justify-center">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900 tracking-tight leading-none">Beauty Selection Bootcamp</h1>
+                    <p class="text-xs text-slate-500 font-medium mt-0.5">부트캠프에 오신 여러분들과 함께 하는 아이스브레이킹!</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <!-- Slide Indicators (Only 2 dots) -->
+                <div class="flex gap-2">
+                    <div id="dot-1" class="w-2.5 h-2.5 rounded-full bg-slate-300 transition-all cursor-pointer" onclick="goToSlide(1)"></div>
+                    <div id="dot-2" class="w-2.5 h-2.5 rounded-full bg-slate-300 transition-all cursor-pointer" onclick="goToSlide(2)"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. Main Content (Slides) -->
+    <main class="flex-1 relative overflow-hidden bg-slate-50">
+        
+        <!-- SLIDE 1: Intro (Who is This?) -->
+        <section id="slide-1" class="slide-container active flex-col justify-center items-center p-6 animate-fade-in">
+            <div class="max-w-4xl w-full text-center space-y-8">
+                <!-- Hero Banner -->
+                <div class="py-16 px-8 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl text-white shadow-2xl relative overflow-hidden group mx-auto w-full transform hover:scale-[1.01] transition-transform duration-500">
+                    <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                    <div class="relative z-10">
+                        <span class="inline-block px-4 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-sm font-semibold mb-6 border border-white/30 shadow-lg animate-bounce-slight">
+                            AI Team Analysis
+                        </span>
+                        <h2 class="text-6xl md:text-7xl font-black mb-6 tracking-tighter drop-shadow-2xl">WHO IS THIS?</h2>
+                        <p class="text-blue-100 text-xl font-light leading-relaxed mb-8 max-w-2xl mx-auto">
+                            AI가 분석한 키워드 데이터를 통해<br>
+                            우리 조의 <strong>숨겨진 주인공</strong>을 찾아보세요!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Intro Card -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl mx-auto">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 mb-2">1. 탐색 (Search)</h3>
+                        <p class="text-sm text-slate-500 leading-snug">제시된 키워드를 보고<br>누구의 특징인지 추리해보세요.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+                            <i class="fa-regular fa-comments"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 mb-2">2. 대화 (Talk)</h3>
+                        <p class="text-sm text-slate-500 leading-snug">질문을 주고받으며<br>자연스럽게 서로를 알아가세요.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 mb-2">3. 발견 (Discover)</h3>
+                        <p class="text-sm text-slate-500 leading-snug">가려진 정보를 클릭해<br>반전 매력을 확인하세요!</p>
+                    </div>
+                </div>
+
+                <button onclick="nextSlide()" class="mt-8 px-8 py-4 bg-slate-900 text-white rounded-full font-bold text-lg hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto animate-bounce-slight">
+                    시작하기 <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: Keyword Talk (Questions) -->
+        <section id="slide-2" class="slide-container flex-col p-6 items-center">
+            <div class="max-w-5xl w-full h-full flex flex-col justify-center">
+                <div class="text-center mb-6 animate-slide-up">
+                    <span class="text-brand-600 font-bold text-sm tracking-widest uppercase mb-2 block">Ice Breaking Phase 1</span>
+                    <h2 class="text-3xl font-bold text-slate-900">키워드 토크 질문</h2>
+                    <p class="text-slate-500 mt-2">어색한 침묵은 NO! 이 질문들로 대화의 물꼬를 터보세요.</p>
+                    
+                    <!-- NEW: Warning & Guide Boxes -->
+                    <div class="mt-6 space-y-3 max-w-xl mx-auto animate-slide-up" style="animation-delay: 0.2s;">
+                        <!-- 1. Warning Box -->
+                        <div class="flex items-center gap-3 bg-red-50 border border-red-100 px-5 py-3 rounded-xl shadow-sm text-red-600 text-sm font-bold text-left">
+                            <span class="text-xl">🚫</span>
+                            <span>주의: 키워드를 직접 묻는 건 반칙! 대화를 나누며 추리해 봅시다.</span>
+                        </div>
+                        
+                        <!-- 2. Guide Box -->
+                        <div class="bg-white border-2 border-orange-100 p-4 rounded-xl shadow-md text-left relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 text-orange-500 group-hover:opacity-20 transition-opacity">
+                                <i class="fa-solid fa-user-secret text-5xl"></i>
+                            </div>
+                            <h4 class="text-orange-600 font-bold text-sm mb-1 flex items-center gap-2">
+                                <span class="text-lg">🤫</span> 본인 키워드 직접 언급 금지! (스포일러 주의)
+                            </h4>
+                            <p class="text-slate-600 text-xs leading-relaxed font-medium pl-8">
+                                너무 숨길 필요는 없지만, <span class="bg-orange-50 text-orange-700 px-1 rounded font-bold">관련된 취미나 에피소드</span>를 은근슬쩍 이야기하며 구성원들이 자연스럽게 맞출 수 있도록 힌트를 주세요!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full animate-slide-up" style="animation-delay: 0.1s;">
+                    <!-- Static Questions List -->
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden flex flex-col">
+                        <div class="p-5 bg-slate-50 border-b border-slate-100">
+                            <h3 class="font-bold text-lg text-slate-700 flex items-center gap-2">
+                                <i class="fa-regular fa-star text-yellow-500"></i> 추천 질문 리스트
+                            </h3>
+                        </div>
+                        <div class="p-6 space-y-4 overflow-y-auto custom-scrollbar max-h-[400px]">
+                            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 hover:border-brand-300 transition-colors cursor-default">
+                                <span class="text-xs font-bold text-brand-500 mb-1 block">Q1. 워라밸 / 취미</span>
+                                <p class="text-base text-slate-700 font-medium">"퇴근 후나 주말에 '나를 위한 보상'으로 주로 무엇을 하시나요?"</p>
+                            </div>
+                            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 hover:border-brand-300 transition-colors cursor-default">
+                                <span class="text-xs font-bold text-brand-500 mb-1 block">Q2. 덕질 / 몰입</span>
+                                <p class="text-base text-slate-700 font-medium">"최근에 무언가에 '푹' 빠져서 시간 가는 줄 몰랐던 적이 있으신가요?"</p>
+                            </div>
+                            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 hover:border-brand-300 transition-colors cursor-default">
+                                <span class="text-xs font-bold text-brand-500 mb-1 block">Q3. 성격 / 반전매력</span>
+                                <p class="text-base text-slate-700 font-medium">"MBTI가 어떻게 되세요? 첫인상과 실제 성격이 다른 편인가요?"</p>
+                            </div>
+                            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 hover:border-brand-300 transition-colors cursor-default">
+                                <span class="text-xs font-bold text-brand-500 mb-1 block">Q4. 성향 파악</span>
+                                <p class="text-base text-slate-700 font-medium">"날씨 좋은 날, '핫플레이스 탐방' vs '집콕 힐링' 중 어느 쪽이세요?"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Generator -->
+                    <div class="flex flex-col gap-6">
+                        <div class="flex-1 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-2xl shadow-xl p-8 flex flex-col justify-center items-center text-center text-white relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-8 opacity-20 group-hover:scale-110 transition-transform duration-700">
+                                <i class="fa-solid fa-robot text-9xl"></i>
+                            </div>
+                            
+                            <div class="relative z-10 w-full max-w-md">
+                                <h3 class="font-bold text-2xl mb-2 flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-yellow-300"></i> 랜덤 질문 생성
+                                </h3>
+                                <p class="text-indigo-100 mb-8 opacity-90">더 색다른 질문이 필요하신가요?<br>랜덤 질문으로 분위기를 띄워보세요!</p>
+                                
+                                <div id="aiResponseBox" class="hidden min-h-[100px] flex items-center justify-center w-full bg-white/10 backdrop-blur-md rounded-xl p-6 text-lg font-medium border border-white/20 text-white shadow-inner animate-fade-in mb-6">
+                                    <!-- Random Question Response -->
+                                </div>
+
+                                <button onclick="generateRandomQuestion()" id="aiBtn" class="w-full py-4 bg-white text-indigo-700 font-bold rounded-xl shadow-lg hover:bg-indigo-50 transition-all transform active:scale-95 flex items-center justify-center gap-2 text-lg">
+                                    <i class="fa-solid fa-shuffle"></i> 새로운 질문 뽑기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Controls (Fixed Bottom) -->
+        <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-4 bg-white/90 backdrop-blur shadow-lg border border-slate-200 px-6 py-3 rounded-full z-40">
+            <button onclick="prevSlide()" id="prevBtn" class="text-slate-400 hover:text-slate-900 transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+                <i class="fa-solid fa-chevron-left text-xl"></i>
+            </button>
+            <div class="text-xs font-bold text-slate-500 tracking-wider">
+                <span id="slide-indicator">1</span> / 2
+            </div>
+            <button onclick="nextSlide()" id="nextBtn" class="text-slate-900 hover:text-brand-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+                <i class="fa-solid fa-chevron-right text-xl"></i>
+            </button>
+        </div>
+
+    </main>
+
+    <script>
+        // --- State ---
+        let currentSlide = 1;
+        const totalSlides = 2; // Reduced to 2
+
+        // --- Data ---
+        const RANDOM_QUESTIONS_LIST = [
+            "10억이 생긴다면 가장 먼저 무엇을 사고 싶나요?",
+            "투명인간이 된다면 하루 동안 무엇을 하고 싶으신가요?",
+            "평생 한 가지 음식만 먹어야 한다면? (피자 vs 치킨)",
+            "자신을 동물로 표현한다면 어떤 동물인가요? 그 이유는?",
+            "가장 기억에 남는 여행지는 어디인가요?",
+            "최근에 산 물건 중 가장 잘 샀다고 생각하는 것은?",
+            "나만의 스트레스 해소법이 있다면?",
+            "학창시절 별명이 있었다면 무엇인가요?",
+            "죽기 전에 꼭 해보고 싶은 버킷리스트 1위는?",
+            "가장 좋아하는 영화나 드라마 인생작은?",
+            "아침형 인간인가요, 올빼미형 인간인가요?",
+            "찍먹 vs 부먹, 당신의 선택은?",
+            "타임머신을 타고 갈 수 있다면 미래로 가고 싶나요, 과거로 가고 싶나요?",
+            "노래방 애창곡 18번은 무엇인가요?",
+            "나에게 초능력이 생긴다면 어떤 능력을 갖고 싶나요?",
+            "가장 좋아하는 계절과 그 이유는?",
+            "편의점에 가면 꼭 사는 최애 간식은?",
+            "유튜브 알고리즘이 나를 이끄는 주된 콘텐츠는?",
+            "집에 불이 났을 때(사람/반려동물 제외) 가장 먼저 챙길 물건은?",
+            "지금 당장 먹고 싶은 음식은?"
+        ];
+
+        // --- Init Render ---
+        function init() {
+            updateNavigation();
+        }
+
+        // --- Slide Logic ---
+        function updateNavigation() {
+            // Update slides visibility
+            for (let i = 1; i <= totalSlides; i++) {
+                const slide = document.getElementById(`slide-${i}`);
+                const dot = document.getElementById(`dot-${i}`);
+                
+                if (i === currentSlide) {
+                    if (slide) slide.classList.add('active');
+                    if (dot) {
+                        dot.classList.remove('bg-slate-300');
+                        dot.classList.add('bg-slate-800', 'w-6');
+                    }
+                } else {
+                    if (slide) slide.classList.remove('active');
+                    if (dot) {
+                        dot.classList.add('bg-slate-300');
+                        dot.classList.remove('bg-slate-800', 'w-6');
+                    }
+                }
+            }
+
+            // Update buttons & indicators
+            document.getElementById('slide-indicator').textContent = currentSlide;
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateNavigation();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateNavigation();
+            }
+        }
+
+        function goToSlide(n) {
+            if (n >= 1 && n <= totalSlides) {
+                currentSlide = n;
+                updateNavigation();
+            }
+        }
+
+        // --- Random Question Generation Logic ---
+        function generateRandomQuestion() {
+            const aiBtn = document.getElementById('aiBtn');
+            const aiBox = document.getElementById('aiResponseBox');
+            
+            aiBtn.disabled = true;
+            aiBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 생성 중...';
+
+            // Pick a random question from the list
+            setTimeout(() => {
+                const randomQuestion = RANDOM_QUESTIONS_LIST[Math.floor(Math.random() * RANDOM_QUESTIONS_LIST.length)];
+                
+                aiBox.classList.remove('hidden');
+                aiBox.textContent = `"${randomQuestion}"`;
+                
+                aiBtn.disabled = false;
+                aiBtn.innerHTML = '<i class="fa-solid fa-shuffle"></i> 새로운 질문 뽑기';
+            }, 500); // 0.5초 딜레이로 생성하는 척 연출
+        }
+
+        // Initialize App
+        init();
+
+    </script>
+</body>
+</html>
